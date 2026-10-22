@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a0407">
+<title>शुभ विवाह निमंत्रण | प्रियंका व अमोल</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Rozha+One&family=Gotu&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#1a0407;display:flex;justify-content:center;padding:24px 0}
+.invite{width:480px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+@media (max-width:520px){body{padding:0}.invite{zoom:.8}}
+@media (max-width:400px){.invite{zoom:.76}}
+@media (max-width:370px){.invite{zoom:.7}}
+@media (max-width:340px){.invite{zoom:.66}}
+/* Memory gallery: two-column masonry keeps each photo uncropped */
+.gallery{width:100%;column-count:2;column-gap:10px}
+.gallery img{display:block;width:100%;margin:0 0 10px;break-inside:avoid;border:1px solid rgba(230,195,106,.6);border-radius:4px;cursor:zoom-in}
+/* Full-screen photo viewer */
+.lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(20,3,6,.94);cursor:zoom-out;z-index:10}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:100%;border:2px solid #e6c36a;border-radius:4px}
+/* Folded card: gate-fold doors swing open in 3D to reveal the invitation */
+body{min-height:100vh;min-height:100dvh;align-items:center;overflow-x:clip}
+/* --fit shrinks the closed card to fit short screens; it grows back as the card opens */
+.invite{position:relative;scale:var(--fit,1);margin-block:calc((var(--fit,1) - 1) * 340px);transition:translate .4s ease,box-shadow .4s ease}
+.invite.open{transition:scale 1.2s cubic-bezier(.65,0,.35,1),margin 1.2s cubic-bezier(.65,0,.35,1),translate .4s ease,box-shadow .4s ease}
+@media (hover:hover){.closed:not(.opening):hover{translate:0 -4px;box-shadow:0 18px 50px rgba(0,0,0,.6)}}
+.card{overflow:hidden;transition:max-height 1.6s cubic-bezier(.65,0,.35,1)}
+.closed .card{max-height:680px}
+.cover{position:absolute;inset:0;z-index:5;perspective:2000px;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:opacity .6s ease}
+.done .cover{opacity:0;pointer-events:none}
+.door{position:absolute;top:0;bottom:0;width:50%;transform-style:preserve-3d;transition:transform 1.6s cubic-bezier(.6,.05,.25,1)}
+.door.left{left:0;transform-origin:left center}
+.door.right{right:0;transform-origin:right center}
+.open .door.left{transform:rotateY(-178deg)}
+.open .door.right{transform:rotateY(178deg);transition-delay:.12s}
+.face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.front{background:repeating-radial-gradient(circle at var(--seam) 50%,transparent 0 22px,rgba(230,195,106,.08) 22px 23px),linear-gradient(160deg,#5a131c,#3a0a10)}
+.left .front{--seam:100%;box-shadow:inset -1px 0 0 rgba(0,0,0,.5)}
+.right .front{--seam:0%;box-shadow:inset 1px 0 0 rgba(255,230,170,.12)}
+.face.front::before{content:"";position:absolute;top:12px;bottom:12px;border:3px double rgba(230,195,106,.8)}
+.left .front::before{left:12px;right:0;border-right:0}
+.right .front::before{right:12px;left:0;border-left:0}
+.face.back{transform:rotateY(180deg);background:linear-gradient(90deg,rgba(0,0,0,.3),transparent 40%),#2a060b;box-shadow:inset 0 0 0 10px #2a060b,inset 0 0 0 11px rgba(230,195,106,.45)}
+/* Shade darkens as a door turns away from the light, lightens as its inside faces us */
+.face::after{content:"";position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+.open .face::after{animation:shade 1.6s cubic-bezier(.6,.05,.25,1) forwards}
+.open .right .face::after{animation-delay:.12s}
+@keyframes shade{50%{opacity:.6}100%{opacity:.15}}
+.art{position:absolute;top:0;bottom:0;left:0;width:200%;display:flex;flex-direction:column;align-items:center;padding:62px 40px 112px;text-align:center;color:#e6c36a}
+.right .art{left:-100%}
+.art-top{font-size:13px;letter-spacing:.5px}
+.art-title{font-family:'Yatra One',serif;font-size:56px;line-height:1.2;margin-top:14px}
+.art-names{margin-top:auto;font-family:'Rozha One',serif;font-size:32px;color:#f6ead0}
+.art-names span{color:#e6c36a;font-size:24px;margin:0 6px}
+.art-date{margin-top:8px;font-size:15px;color:#e8d6ad}
+.seal{position:absolute;left:50%;top:50%;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#6a1520,#3a0a10 70%);box-shadow:0 0 0 3px #e6c36a,0 0 0 7px #3a0a10,0 0 0 8px rgba(230,195,106,.6),0 10px 25px rgba(0,0,0,.5);animation:glow 2.4s ease-in-out infinite;transition:transform .5s ease,opacity .5s ease}
+.seal img{width:80px;height:96px;object-fit:cover}
+@keyframes glow{50%{box-shadow:0 0 0 3px #e6c36a,0 0 0 7px #3a0a10,0 0 0 8px rgba(230,195,106,.6),0 0 30px rgba(230,195,106,.55)}}
+.hint{position:absolute;left:0;right:0;bottom:40px;text-align:center;font-size:13px;color:#e8d6ad;letter-spacing:.5px;animation:blink 2s ease-in-out infinite;transition:opacity .4s ease}
+@keyframes blink{50%{opacity:.45}}
+.opening .seal{transform:scale(1.25);opacity:0;animation:none}
+.opening .hint{opacity:0;animation:none}
+/* Content fades up as it comes into view */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+/* Flower petal shower while the card opens */
+.petals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20}
+.petals i{position:absolute;top:-24px;width:var(--s);height:var(--s);border-radius:60% 0 60% 0;opacity:.9;animation:fall var(--d) linear var(--w) forwards}
+@keyframes fall{to{transform:translate(var(--x),110vh) rotate(540deg);opacity:.7}}
+@media (prefers-reduced-motion:reduce){.invite,.door,.seal,.hint,.card,.cover,.reveal{transition-duration:.01s!important;transition-delay:0s!important;animation:none!important}.face::after{animation:none!important}}
+</style>
+<noscript><style>.cover{display:none}.closed .card{max-height:none}</style></noscript>
+</head>
+<body>
+<div class="invite closed"><div class="card" style="width: 480px; box-sizing: border-box; padding: 18px; background: #2a060b; font-family: 'Gotu', serif; color: #f6ead0">
+<div style="height: 100%; box-sizing: border-box; border: 2px solid #e6c36a; padding: 6px">
+<div class="content" style="height: 100%; box-sizing: border-box; border: 1px solid rgba(230,195,106,0.45); padding: 36px 30px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; background: #3a0a10">
+
+<img src="images/ganpati.webp" alt="श्री गणेश" style="width: 100px; height: 120px; object-fit: cover; object-position: center; margin-bottom: -10px">
+
+<div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #e6c36a; letter-spacing: 0.5px">
+<div>॥ गणेश प्रसन्न ॥</div>
+<div>॥ श्री खंडेराय प्रसन्न ॥ &#160; ॥ फिरंगाई देवी प्रसन्न ॥</div>
+</div>
+
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" stroke="#e6c36a" stroke-width="1.4" aria-hidden="true"><path d="M2 20 H44"></path><path d="M76 20 H118"></path><path d="M60 4 L72 20 L60 36 L48 20 Z"></path><path d="M60 12 L66 20 L60 28 L54 20 Z"></path><circle cx="44" cy="20" r="2"></circle><circle cx="76" cy="20" r="2"></circle></svg>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-family: 'Yatra One', serif; font-size: 52px; line-height: 1.1; color: #e6c36a">शुभ विवाह</div>
+<div style="font-size: 14px; color: #e8d6ad; line-height: 1.7">आमच्या येथे श्रीकृपेने होणाऱ्या शुभविवाह सोहळ्यास<br>आपण सहकुटुंब उपस्थित राहावे, ही विनंती.</div>
+</div>
+
+<div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px">
+<img src="images/women.jpeg" alt="वधू प्रियंका" style="width: 150px; height: 200px; object-fit: cover; object-position: center 20%; border: 2px solid #e6c36a; border-radius: 75px 75px 6px 6px; padding: 4px; background: #2a060b; margin-bottom: 8px">
+<div style="font-size: 12px; letter-spacing: 3px; color: #e6c36a">वधू</div>
+<div style="font-family: 'Rozha One', serif; font-size: 32px; color: #f6ead0">चि. सौ. का. प्रियंका</div>
+<div style="font-size: 14px; line-height: 1.7; color: #e8d6ad">श्री. प्रफुल्ल केशव जोशी यांची ज्येष्ठ सुकन्या<br>रा. कोथरूड, पुणे</div>
+</div>
+
+<div style="display: flex; align-items: center; gap: 14px; width: 100%">
+<div style="flex: 1; height: 1px; background: rgba(230,195,106,0.5)"></div>
+<div style="font-family: 'Yatra One', serif; font-size: 22px; color: #e6c36a">॥ शुभमंगल ॥</div>
+<div style="flex: 1; height: 1px; background: rgba(230,195,106,0.5)"></div>
+</div>
+
+<div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px">
+<div style="width: 150px; height: 200px; border: 2px solid #e6c36a; border-radius: 75px 75px 6px 6px; padding: 4px; background: #2a060b; margin-bottom: 8px">
+<div style="height: 100%; overflow: hidden; border-radius: 71px 71px 3px 3px"><img src="images/men.jpeg" alt="वर अमोल" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; transform: scale(1.7); transform-origin: 50% 29%"></div>
+</div>
+<div style="font-size: 12px; letter-spacing: 3px; color: #e6c36a">वर</div>
+<div style="font-family: 'Rozha One', serif; font-size: 32px; color: #f6ead0">चि. अमोल</div>
+<div style="font-size: 14px; line-height: 1.7; color: #e8d6ad">श्री. अनिल शांताराम कुलकर्णी यांचे ज्येष्ठ चिरंजीव<br>रा. शिक्रापूर ता. शिरूर जि. पुणे</div>
+</div>
+
+<div style="width: 100%; box-sizing: border-box; border: 1px solid #e6c36a; border-radius: 4px; padding: 20px 16px; display: flex; flex-direction: column; gap: 8px; background: #4a0f16">
+<div style="font-size: 12px; letter-spacing: 3px; color: #e6c36a">शुभमुहूर्त</div>
+<div style="font-family: 'Yatra One', serif; font-size: 24px; color: #f6ead0">सोमवार दि. १५/०७/२०२४</div>
+<div style="font-size: 18px; color: #e6c36a">सकाळी ११.०६ वा.</div>
+<div style="font-size: 13px; color: #e8d6ad">तिथी ९, क्रोधी नाम संवत्सर, शके १९४६</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px; align-items: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e6c36a" stroke-width="1.6" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+<div style="font-size: 12px; letter-spacing: 3px; color: #e6c36a">विवाहस्थळ</div>
+<div style="font-family: 'Yatra One', serif; font-size: 22px; color: #f6ead0">शताक्षी बँक्वेट हॉल</div>
+<div style="font-size: 13px; line-height: 1.7; color: #e8d6ad">सिंहगड कॉलेज ऑफ नर्सिंग समोर, पूजा इलेक्ट्रॉनिक्सच्या वर,<br>तिसरा मजला, नऱ्हे, पुणे - ४११०४१</div>
+</div>
+
+<div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px">
+<div style="display: flex; align-items: center; gap: 14px; width: 100%">
+<div style="flex: 1; height: 1px; background: rgba(230,195,106,0.5)"></div>
+<div style="font-family: 'Yatra One', serif; font-size: 22px; color: #e6c36a">आमच्या आठवणी</div>
+<div style="flex: 1; height: 1px; background: rgba(230,195,106,0.5)"></div>
+</div>
+<div class="gallery">
+<img src="images/couple_1.jpeg" alt="प्रियंका व अमोल" loading="lazy">
+<img src="images/couple_3.jpeg" alt="प्रियंका व अमोल" loading="lazy">
+<img src="images/couple_2.jpeg" alt="प्रियंका व अमोल" loading="lazy">
+<img src="images/WhatsApp%20Image%202026-10-22%20at%206.55.58%20PM.jpeg" alt="प्रियंका" loading="lazy">
+<img src="images/couple_4.jpeg" alt="प्रियंका व अमोल" loading="lazy">
+<img src="images/couple_5.jpeg" alt="प्रियंका व अमोल" loading="lazy">
+<img src="images/couple_8.jpeg" alt="प्रियंका व अमोल" loading="lazy">
+<img src="images/couple_6.jpeg" alt="प्रियंका व अमोल" loading="lazy">
+<img src="images/WhatsApp%20Image%202026-10-22%20at%206.55.54%20PM.jpeg" alt="अमोल" loading="lazy">
+<img src="images/couple_7.jpeg" alt="प्रियंका व अमोल" loading="lazy">
+</div>
+</div>
+
+<div style="width: 140px; height: 1px; background: rgba(230,195,106,0.6)"></div>
+
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 12px; color: #e6c36a">— आपले नम्र —</div>
+<div style="font-size: 15px; color: #f6ead0">प्रफुल्ल केशव जोशी / प्रथमेश प्रफुल्ल जोशी</div>
+<div style="font-size: 14px; color: #e8d6ad">संपर्क : ८६००७७७०९२ / ७७७५८६०२९१</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 12px; color: #e6c36a">— निमंत्रक —</div>
+<div style="font-family: 'Yatra One', serif; font-size: 24px; color: #e6c36a">समस्त जोशी परिवार</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="cover" role="button" tabindex="0" aria-label="निमंत्रण उघडा" style="font-family: 'Gotu', serif">
+<div class="door left"><div class="face front"><div class="art">
+<div class="art-top">॥ श्री गणेशाय नमः ॥</div>
+<div class="art-title">शुभ विवाह</div>
+<div class="art-names">प्रियंका <span>&amp;</span> अमोल</div>
+<div class="art-date">सोमवार दि. १५/०७/२०२४</div>
+</div></div><div class="face back"></div></div>
+<div class="door right"><div class="face front"></div><div class="face back"></div></div>
+<div class="seal"><img src="images/ganpati.webp" alt=""></div>
+<div class="hint">निमंत्रण उघडण्यासाठी स्पर्श करा</div>
+</div>
+</div>
+<div class="lightbox" id="lightbox"><img alt=""></div>
+<script>
+// Open a gallery photo full-screen; tap or Esc closes it
+const box = document.getElementById('lightbox'), boxImg = box.querySelector('img');
+document.querySelectorAll('.gallery img').forEach(img => img.addEventListener('click', () => { boxImg.src = img.src; boxImg.alt = img.alt; box.classList.add('open'); }));
+box.addEventListener('click', () => box.classList.remove('open'));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') box.classList.remove('open'); });
+
+const invite = document.querySelector('.invite'), cover = invite.querySelector('.cover'), card = invite.querySelector('.card');
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Right door shows the other half of the same cover artwork, so text splits at the fold
+const art = cover.querySelector('.art').cloneNode(true);
+art.setAttribute('aria-hidden', 'true');
+cover.querySelector('.door.right .front').append(art);
+
+// Scale the card to any screen: fill narrow widths, and fit the closed card within the screen height
+function fit() {
+  const z = Math.min(1, document.documentElement.clientWidth / 480);
+  const pad = parseFloat(getComputedStyle(document.body).paddingTop) * 2 + 16;
+  invite.style.zoom = z;
+  invite.style.setProperty('--fit', invite.classList.contains('open') ? 1 : Math.min(1, (innerHeight - pad) / (680 * z)));
+}
+fit();
+addEventListener('resize', fit);
+
+// Hide content until it scrolls into view after opening
+const items = [...document.querySelectorAll('.content > *, .gallery img')];
+items.forEach(el => el.classList.add('reveal'));
+const io = new IntersectionObserver(entries => entries.filter(e => e.isIntersecting).forEach((e, i) => {
+  e.target.style.transitionDelay = i * 120 + 'ms'; e.target.classList.add('in'); io.unobserve(e.target);
+}), { threshold: 0.15 });
+
+// Shower flower petals over the page while the card opens
+function showerPetals() {
+  const sky = document.body.appendChild(document.createElement('div'));
+  sky.className = 'petals';
+  for (let i = 0; i < 40; i++) {
+    const p = sky.appendChild(document.createElement('i'));
+    p.style.cssText = `left:${Math.random() * 100}%;--s:${8 + Math.random() * 10}px;--d:${3.5 + Math.random() * 3}s;--w:${Math.random() * 2.5}s;--x:${Math.random() * 120 - 60}px;background:${['#e6c36a', '#f2a516', '#c2185b', '#e85d75'][i % 4]}`;
+  }
+  setTimeout(() => sky.remove(), 10000);
+}
+
+// Open the card: lift the seal, swing the doors, then unfold to full length
+function openCard() {
+  if (invite.classList.contains('opening')) return;
+  invite.classList.add('opening');
+  // Lock scrolling while the swinging doors overhang the screen
+  document.documentElement.style.overflow = 'hidden';
+  setTimeout(() => {
+    invite.classList.add('open');
+    invite.style.setProperty('--fit', 1);
+    items.forEach(el => io.observe(el));
+    if (!calm) showerPetals();
+  }, calm ? 0 : 450);
+  setTimeout(() => {
+    card.style.maxHeight = card.scrollHeight + 'px';
+    invite.classList.add('done');
+    invite.classList.remove('closed');
+    setTimeout(() => {
+      card.style.maxHeight = 'none'; cover.remove();
+      document.documentElement.style.overflow = '';
+      // Re-check sections that were clipped while the card was folded
+      items.filter(el => !el.classList.contains('in')).forEach(el => { io.unobserve(el); io.observe(el); });
+    }, calm ? 50 : 1700);
+  }, calm ? 0 : 1900);
+}
+cover.addEventListener('click', openCard);
+cover.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCard(); } });
+</script>
+</body>
+</html>
